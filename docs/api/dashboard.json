@@ -1,0 +1,126 @@
+{
+  "openapi": "3.0.0",
+  "servers": [],
+  "info": {
+    "version": "1.0.0",
+    "title": "Monthly Income Manager",
+    "contact": {
+      "email": "navodsachintha@gmail.com",
+      "name": "Navod Sachindra"
+    }
+  },
+
+  "paths": {
+    "/dashboard": {
+      "get": {
+        "summary": "",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "operationId": "/id",
+        "responses": {
+          "default": {
+            "description": "Default response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "month": "February",
+                  "spend": 15000
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": false,
+          "content": {
+            "*application/json*": {
+              "schema": {}
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "",
+        "description": "",
+        "parameters": [],
+        "operationId": "/addexpense",
+        "responses": {
+          "200": {
+            "description": "Default response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": false,
+          "content": {
+            "*application/json*": {
+              "schema": {}
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Monthly Expends": {
+        "type": "object",
+        "properties": {
+          "month": {
+            "type": "string"
+          },
+          "expends": {
+            "type": "number"
+          }
+        }
+      },
+      "My Spends": {
+        "type": "object",
+        "properties": {
+          "spendType": {
+            "type": "string"
+          },
+          "spend": {
+            "type": "float"
+          },
+          "date": {
+            "type": "date/time"
+          }
+        }
+      },
+      "Whish List": {
+        "type": "object",
+        "properties": {
+          "whishId": {
+            "type": "string"
+          },
+          "wishName": {
+            "type": "string"
+          },
+          "totalSpend": {
+            "type": "float"
+          }
+        }
+      }
+    }
+  }
+}
