@@ -1,9 +1,14 @@
-from flask import Flask
+from flask import Flask,request
 from flask.templating import render_template
 from flask_sqlalchemy import SQLAlchemy
+from werkzeug.utils import secure_filename
+import os
+import boto3
 
 application = Flask(__name__)
-application.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://admin:navod2000@aa505em2hdmxg3.ckqyp22eptyw.us-east-2.rds.amazonaws.com/ebdb'
+DB_URI = os.environ.get("DB_URI")
+DB_URI = "mysql+pymysql://admin:navod2000@aaio2anxazhoo8.ckqyp22eptyw.us-east-2.rds.amazonaws.com:3306/ebdb"
+application.config['SQLALCHEMY_DATABASE_URI'] = DB_URI
 db = SQLAlchemy(application)
 
 
@@ -24,6 +29,29 @@ def user_add():
     db.session.add(admin)
     db.session.commit()
     return "Item add"
+
+@application.route("/upload_image",methods=["GET","POST"])
+def upload_image():
+    print(request.method)
+    if request.method =='POST':
+        file = request.files['profile_pic']
+        file_name = secure_filename(file.filename)
+        print(file_name)
+        file.save(file_name)
+        
+        bucket_name = "testprofileuploadnavod"
+        response = client.upload_file(file_name, bucket_name,file_name)
+        print(response)
+    return render_template("upload_image_form.html")
+
+
+client = boto3.client(
+    's3',
+    aws_access_key_id = "AKIAV3MCP2ZA6AC77WRK",
+    aws_secret_access_key = "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"
+)
+
+
 
 @application.route("/user/list")
 def get_all_users():
