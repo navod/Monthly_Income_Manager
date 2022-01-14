@@ -2,3 +2,4 @@ Flask
 Flask-SQLAlchemy
 pymysql
 boto3
+flask-cors
